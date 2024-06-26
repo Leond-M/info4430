@@ -2,13 +2,12 @@ package middleware
 
 import "github.com/gin-gonic/gin"
 
-
 //list of allowed origins
-var allowedOrigins map[string]bool= map[string]bool{
-	"http://localhost:3000": true, 
+var allowedOrigins map[string]bool = map[string]bool{
+	"http://localhost:3000":                true,
 	"https://front-info4430.molineros.org": true,
+	"http://localhost:8000":                true,
 }
-
 
 //CORSMiddleware is a middleware that allows CORS requests
 func CORSMiddleware() gin.HandlerFunc {
