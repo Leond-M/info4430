@@ -10,7 +10,7 @@ const randoms = [
 ];
 
 function Homepage() {
-	const {user, logout} = useSession();
+	const { user, logout } = useSession();
 
 	return (
 		<main className="relative overflow-hidden bg-white">
@@ -29,7 +29,10 @@ function Homepage() {
 							<p className="text-xl text-gray-500">
 								You are logged in as <span className="font-semibold">{user.email}</span>
 							</p>
-							<button onClick={() => logout()} className="mt-4 inline-block rounded-lg bg-indigo-600 px-6 py-3 text-lg font-semibold text-white shadow-lg hover:bg-indigo-500">
+							<button
+								onClick={() => logout()}
+								className="mt-4 inline-block rounded-lg bg-indigo-600 px-6 py-3 text-lg font-semibold text-white shadow-lg hover:bg-indigo-500"
+							>
 								Log out
 							</button>
 						</div>

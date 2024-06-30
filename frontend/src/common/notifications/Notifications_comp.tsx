@@ -96,9 +96,9 @@ export const MainNotification: FC<NotificationConfig> = ({ type, title, message,
 						</div>
 					</div>
 					<button className="flex shrink-0" onClick={() => removeNotification(id!)}>
-								<span className="sr-only">{"close"}</span>
-								<HiOutlineX className={`size-5 ${textTypeColor1[type]}`} aria-hidden="true" />
-							</button>
+						<span className="sr-only">{"close"}</span>
+						<HiOutlineX className={`size-5 ${textTypeColor1[type]}`} aria-hidden="true" />
+					</button>
 				</div>
 			</div>
 		</main>

@@ -1,7 +1,7 @@
 import { useSession } from "api/actions/session";
 import { NotificationList } from "common/notifications/Notifications_comp";
 import NotFound from "pages/404/Not_found_page";
-import Homepage from "pages/home/Homepage";
+import Homepage from "pages/home/Homepage2";
 import SignInPage from "pages/login/Sign_in";
 import RegisterPage from "pages/register/Register";
 import { Routes, Route } from "react-router-dom";

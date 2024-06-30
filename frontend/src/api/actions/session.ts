@@ -18,7 +18,6 @@ export const useSession = () => {
 	const [userInfo, setUserInfo, removeUserInfo] = useLocalStorage(CACHE_KEYS.SESSION, undefined);
 	const { addNotification } = useNotification();
 	const navigate = useNavigate();
-	
 
 	const updataSession = (data: { varName: string; varVal: unknown }) => {
 		setUserInfo((prevData: Session | undefined) => {
@@ -79,7 +78,7 @@ export const useSession = () => {
 				title: "Error",
 				message: error.response?.data.error ?? "Something went wrong",
 			});
-		}
+		},
 	});
 
 	const { mutate: logout, isPending: isLoadingLogout } = useMutation({
