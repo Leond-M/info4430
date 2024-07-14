@@ -16,7 +16,7 @@ func InitializeJWT(key string) {
 }
 
 type UserClaims struct {
-	Id    uint   `json:"id"`
+	Id    string `json:"id"`
 	Email string `json:"email"`
 }
 
@@ -81,7 +81,7 @@ func ValidateToken(tokenString string) (UserClaims, error) {
 
 		//return claims
 		return UserClaims{
-			Id:    uint(claims["id"].(float64)),
+			Id:    claims["id"].(string),
 			Email: claims["email"].(string),
 		}, nil
 

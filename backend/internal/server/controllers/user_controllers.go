@@ -108,7 +108,7 @@ func Login(ginCtx *gin.Context) {
 	var user pg_models.User
 	postgres_db.DB.First(&user, "email = ?", body.Email)
 
-	if user.ID == 0 {
+	if user.ID == "" {
 		ginCtx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid email or password"})
 		return
 	}

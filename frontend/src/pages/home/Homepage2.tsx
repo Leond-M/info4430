@@ -1,10 +1,7 @@
-import { Link } from "react-router-dom";
-import logo from "../../assets/logo_black.avif";
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { HiBars3, HiBuildingOffice2, HiEnvelope, HiPhone, HiXMark } from "react-icons/hi2";
+
+import { HiBuildingOffice2, HiEnvelope, HiPhone, } from "react-icons/hi2";
 import { FC } from "react";
-import { useSession } from "api/actions/session";
-import { classNames } from "utils";
+
 import hero from "../../assets/hero.avif";
 import hero2 from "../../assets/hero2.avif";
 import utv from "../../assets/utv.avif";
@@ -13,208 +10,18 @@ import dirt_bikes from "../../assets/dirt_bikes.avif";
 import campers from "../../assets/campers.avif";
 import rvs from "../../assets/rvs.avif";
 import electric_bikes from "../../assets/electric_bikes.avif";
+import ScrollLink from "common/Links/Scroll_link";
+import Navbar from "common/navigation/navbar";
 
 const Homepage: FC = () => {
-	const { user, logout } = useSession();
 
 	return (
 		<main className="w-full bg-[#e9ecf3]">
 
 
-			{/* Header */}
-			<section>
-				<Disclosure as="nav" className="">
-					{({ open }) => (
-						<>
-							<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-								<div className="relative flex justify-between">
-									<section>
-										<div className="flex items-center justify-center gap-5 px-10 py-5 ">
-											<img src={logo} alt="logo" className=" w-[150px] md:w-[250px]" />
-										</div>
-									</section>
+		{/* Nav */}
+		<Navbar />
 
-									<div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
-										{/* Mobile menu button */}
-										<DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-											<span className="absolute -inset-0.5" />
-											<span className="sr-only">Open main menu</span>
-											{open ? (
-												<HiXMark className="block size-6" aria-hidden="true" />
-											) : (
-												<HiBars3 className="block size-6" aria-hidden="true" />
-											)}
-										</DisclosureButton>
-									</div>
-
-									<div className="absolute inset-y-0 right-0 hidden items-center gap-4 pr-2 sm:static sm:inset-auto sm:ml-6 sm:flex sm:gap-[20px] sm:pr-0">
-										<Menu as="div" className="relative ml-3">
-											<div>
-												<MenuButton className=" group relative flex text-lg font-semibold text-gray-500 hover:text-gray-900 hover:underline hover:underline-offset-[10px]">
-													<span className="absolute -inset-1.5" />
-													<span className="sr-only">Open user menu</span>
-													<h1>Home</h1>
-												</MenuButton>
-											</div>
-											<MenuItems
-												transition
-												className="absolute right-0 z-10 mt-2 w-[120px] origin-top-right rounded-md bg-[#e9ecf3] py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-											>
-												<MenuItem>
-													{({ focus }) => (
-														<a
-															href="#"
-															className={classNames(
-																focus ? "underline underline-offset-[5px]" : "",
-																"block px-4 py-2 text-sm text-gray-700",
-															)}
-														>
-															UTVs
-														</a>
-													)}
-												</MenuItem>
-												<MenuItem>
-													{({ focus }) => (
-														<a
-															href="#"
-															className={classNames(
-																focus ? "underline underline-offset-[5px]" : "",
-																"block px-4 py-2 text-sm text-gray-700",
-															)}
-														>
-															ATV
-														</a>
-													)}
-												</MenuItem>
-												<MenuItem>
-													{({ focus }) => (
-														<a
-															href="#"
-															className={classNames(
-																focus ? "underline underline-offset-[5px]" : "",
-																"block px-4 py-2 text-sm text-gray-700",
-															)}
-														>
-															Dirt Bikes
-														</a>
-													)}
-												</MenuItem>
-												<MenuItem>
-													{({ focus }) => (
-														<a
-															href="#"
-															className={classNames(
-																focus ? "underline underline-offset-[5px]" : "",
-																"block px-4 py-2 text-sm text-gray-700",
-															)}
-														>
-															Campers
-														</a>
-													)}
-												</MenuItem>
-												<MenuItem>
-													{({ focus }) => (
-														<a
-															href="#"
-															className={classNames(
-																focus ? "underline underline-offset-[5px]" : "",
-																"block px-4 py-2 text-sm text-gray-700",
-															)}
-														>
-															RVs
-														</a>
-													)}
-												</MenuItem>
-												<MenuItem>
-													{({ focus }) => (
-														<a
-															href="#"
-															className={classNames(
-																focus ? "underline underline-offset-[5px]" : "",
-																"block px-4 py-2 text-sm text-gray-700",
-															)}
-														>
-															Electric Bike
-														</a>
-													)}
-												</MenuItem>
-											</MenuItems>
-										</Menu>
-
-										{!user?.email && (
-											<>
-												<Link
-													to="/login"
-													className="text-lg font-semibold text-gray-500 hover:text-gray-900 hover:underline hover:underline-offset-[10px]"
-												>
-													Login
-												</Link>
-												<Link
-													to="/register"
-													className="text-lg font-semibold text-gray-500 hover:text-gray-900 hover:underline hover:underline-offset-[10px]"
-												>
-													Register
-												</Link>
-											</>
-										)}
-
-										{user?.email && (
-											<button
-												onClick={() => logout()}
-												className="text-lg font-semibold text-gray-500 hover:text-gray-900 hover:underline hover:underline-offset-[10px]"
-											>
-												Log out
-											</button>
-										)}
-									</div>
-								</div>
-							</div>
-
-							<DisclosurePanel className="sm:hidden">
-								<div className="space-y-1 pb-4 pt-2">
-									{/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-									<DisclosureButton
-										as="a"
-										href="#"
-										className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-									>
-										Home
-									</DisclosureButton>
-
-									{!user?.email && (
-										<>
-											<DisclosureButton
-												as="a"
-												href="#"
-												className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-											>
-												Login
-											</DisclosureButton>
-											<DisclosureButton
-												as="a"
-												href="#"
-												className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-											>
-												Register
-											</DisclosureButton>
-										</>
-									)}
-
-									{user?.email && (
-										<DisclosureButton
-											as="a"
-											href="#"
-											className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-										>
-											Log out
-										</DisclosureButton>
-									)}
-								</div>
-							</DisclosurePanel>
-						</>
-					)}
-				</Disclosure>
-			</section>
 
 		{/* Hero */}
 		<section className="flex w-full flex-col items-center justify-center gap-8">
@@ -255,30 +62,30 @@ const Homepage: FC = () => {
 			<div className="grid grid-cols-1 items-center justify-center gap-8 sm:grid-cols-2 md:grid-cols-3 md:gap-16">
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={utv} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<button className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</button>
+					<ScrollLink to="/vehicles/utv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</ScrollLink>
 				</div>
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={atv} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<button className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">ATVs</button>
+					<ScrollLink to="/vehicles/atv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">ATVs</ScrollLink>
 				</div>
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={dirt_bikes} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<button className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">Dirt Bikes</button>
+					<ScrollLink to="/vehicles/dirbike" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">Dirt Bikes</ScrollLink>
 				</div>
 
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={campers} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<button className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</button>
+					<ScrollLink to="/vehicles/utv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</ScrollLink>
 				</div>
 
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={rvs} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<button className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</button>
+					<ScrollLink to="/vehicles/utv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</ScrollLink>
 				</div>
 
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={electric_bikes} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<button className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</button>
+					<ScrollLink to="/vehicles/utv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</ScrollLink>
 				</div>
 
 			</div>
