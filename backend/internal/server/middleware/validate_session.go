@@ -28,3 +28,23 @@ func ValidateSession(ginCtx *gin.Context) {
 	ginCtx.Set("session", claims)
 	ginCtx.Next()
 }
+
+func LaxSession(ginCtx *gin.Context) {
+	// Get token from the request
+	token, err := ginCtx.Cookie("Authorization")
+	if err != nil {
+		ginCtx.Next()
+		return
+	}
+
+	// Validate the token
+	claims, err := jwt_wrapper.ValidateToken(token)
+	if err != nil {
+		ginCtx.Next()
+		return
+	}
+
+	// Set the user ID in the context
+	ginCtx.Set("session", claims)
+	ginCtx.Next()
+}

@@ -1,15 +1,16 @@
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { FC } from "react";
-
-
-
-import utv from "assets/utv.avif"
-import atv from "assets/atv.avif"
-import campers from "assets/campers.avif"
-import dirtBikes from "assets/dirt_bikes.avif"
 import BookmarkGalleryCard from './Bookmark_card';
+import { Listing } from 'api/requests/listings';
 
+
+
+
+
+type Props = {
+	data: Listing[];
+}
 
 
 
@@ -35,108 +36,9 @@ const responsive = {
 
 
 
-  const mockData = [
-	{
-		img: utv,
-		title: "Vehicle 1",
-		price: "$100",
-		location: "Location 1",
-		isBookmarked: true,
-		id: 1,
-	},
-	{
-		img: atv,
-		title: "Vehicle 2",
-		price: "$200",
-		location: "Location 2",
-		isBookmarked: true,
-		id: 2,
-	},
-	{
-		img: campers,
-		title: "Vehicle 3",
-		price: "$300",
-		location: "Location 3",
-		isBookmarked: true,
-		id: 3,
-	},
-	{
-		img: dirtBikes,
-		title: "Vehicle 4",
-		price: "$400",
-		location: "Location 4",
-		isBookmarked: true,
-		id: 4,
-	},
-	{
-		img: atv,
-		title: "Vehicle 5",
-		price: "$500",
-		location: "Location 5",
-		isBookmarked: true,
-		id: 5,
-	},
-	{
-		img: utv,
-		title: "Vehicle 6",
-		price: "$600",
-		location: "Location 6",
-		isBookmarked: true,
-		id: 6,
-	},
-	{
-		img: campers,
-		title: "Vehicle 7",
-		price: "$700",
-		location: "Location 7",
-		isBookmarked: true,
-		id: 7,
-	},
-	{
-		img: dirtBikes,
-		title: "Vehicle 8",
-		price: "$800",
-		location: "Location 8",
-		isBookmarked: true,
-		id: 8,
-	},
-	{
-		img: campers,
-		title: "Vehicle 9",
-		price: "$900",
-		location: "Location 9",
-		isBookmarked: true,
-		id: 9,
-	},
-	{
-		img: atv,
-		title: "Vehicle 10",
-		price: "$1000",
-		location: "Location 10",
-		isBookmarked: true,
-		id: 10,
-	},
-	{
-		img: utv,
-		title: "Vehicle 11",
-		price: "$1100",
-		location: "Location 11",
-		isBookmarked: true,
-		id: 11,
-	},
-	{
-		img: dirtBikes,
-		title: "Vehicle 12",
-		price: "$1200",
-		location: "Location 12",
-		isBookmarked: true,
-		id: 12,
-	},
-];
 
 
-
-const ManageBookmarksCarousel: FC = () => {
+const ManageBookmarksCarousel: FC<Props> = ({data}) => {
 
     return (
         <div className={`slider-container mx-auto mt-20  max-w-7xl`}>
@@ -156,10 +58,10 @@ const ManageBookmarksCarousel: FC = () => {
 			dotListClass="custom-dot-list-style"
 			itemClass="carousel-item-padding-40-px"			
 			>
-                {mockData.map((listing) => {
+                {data.map((listing) => {
                     return (
                             <BookmarkGalleryCard key={Date.now()}
-							{...listing}
+							data={listing}
                             />
                     );
                 })}

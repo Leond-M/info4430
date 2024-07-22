@@ -36,8 +36,8 @@ function App() {
 
 				{/* Product */}
 				<Route path="/listings" >
-					<Route path=":listingId" element={<ListingProduct/>} />
-					<Route path=":listingId/reserve" element={<ListingProductReservePage />} />
+					<Route path=":vehicleType/:listingId" element={<ListingProduct/>} />
+					<Route path=":vehicleType/:listingId/reserve" element={<ListingProductReservePage />} />
 				</Route>
 
 				{/* Manage rentals */}

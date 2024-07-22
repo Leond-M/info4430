@@ -8,30 +8,20 @@ import VehicleMenu from "common/menus/vehicle_menu";
 import utv from "assets/utv.avif";
 import { useParams } from "react-router-dom";
 import ScrollLink from "common/Links/Scroll_link";
+import { useGetListing } from "api/actions/listings";
+import { assets } from "common/cars";
 
 
-const description = `
-This vehicle will have a description here by the owner on their thoughts on the vehicle so the renter knows what they will be renting out.
 
-Amenities:
--Extra gas tank in the back
--Extra bunjey cords
--Delivery and pickup included up to 25 miles
 
-Renters Insurance on every vehicle so YOU are protected.
-
-Not ready to reserve? Bookmark any vehicle you like to save it.
-
-Have a question? Message the owner and find out more about the vehicle before you reserve it.
-`;
 
 
 const ListingProduct = () => {
 
-	
 	//gets the slug from the url
-	const { listingId = "" } = useParams();
+	const { listingId = "", vehicleType="" } = useParams();
 
+	const {data} = useGetListing({listingId, vehicleType} );
 
 	  return (
 	<main className="min-h-screen bg-[#f2f3f5]">
@@ -50,7 +40,7 @@ const ListingProduct = () => {
 
 		{/* Product image and description*/}
 		<div >
-			<ListingProductCard img={utv} description={description} isBookmarked={false} />
+			<ListingProductCard img={assets[data?.vehicle_type || ""]?.[data?.img_id || 0] || utv} description={data?.description || "Placeholder"} isBookmarked={false} />
 		</div>
 
 		{/* Calendar and reserve */}
@@ -60,7 +50,7 @@ const ListingProduct = () => {
 				<div className="w-[300px]">
 					<div className=" border border-black bg-white p-2">
 						{/* Price */}
-						<p className="text-center text-2xl font-bold">$200/Day</p>
+						<p className="text-center text-2xl font-bold">${data?.price}/Day</p>
 						<p className="text-center text-lg">3/10 - 4/10</p>
 						
 						{/* Divider */}
@@ -92,7 +82,7 @@ const ListingProduct = () => {
 							<p className="text-2xl font-bold">$1011.15</p>
 						</div>
 					</div>
-					<ScrollLink to={`/listings/${listingId}/reserve`} className="block w-full cursor-pointer border border-black bg-[#6db1ff] px-6 py-4 text-center text-2xl font-bold hover:bg-blue-300">
+					<ScrollLink to={`/listings/${vehicleType}/${listingId}/reserve`} className="block w-full cursor-pointer border border-black bg-[#6db1ff] px-6 py-4 text-center text-2xl font-bold hover:bg-blue-300">
 						Reserve Now
 					</ScrollLink>
 				</div>

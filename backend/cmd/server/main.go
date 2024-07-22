@@ -46,6 +46,13 @@ func main() {
 	router.DELETE("/auth/session", controllers.Logout)
 	router.GET("/auth/session", middleware.ValidateSession, controllers.RefreshSession)
 
+	//listings
+	router.GET("/listings", middleware.LaxSession, controllers.GetListings)
+	router.GET("/listing", middleware.LaxSession, controllers.GetListing)
+
+	//bookmark
+	router.POST("/bookmarks", middleware.ValidateSession, controllers.BookmarkListing)
+	router.GET("/bookmarks", middleware.ValidateSession, controllers.GetBookmarks)
 
 	//logs
 	logger.Log("Starting server on : %s", *port)
