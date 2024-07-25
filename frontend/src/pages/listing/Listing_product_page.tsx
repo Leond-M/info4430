@@ -10,6 +10,8 @@ import { useParams } from "react-router-dom";
 import ScrollLink from "common/Links/Scroll_link";
 import { useGetListing } from "api/actions/listings";
 import { assets } from "common/cars";
+import { useState } from "react";
+import Chatbox from "./components/Chatbox";
 
 
 
@@ -22,6 +24,7 @@ const ListingProduct = () => {
 	const { listingId = "", vehicleType="" } = useParams();
 
 	const {data} = useGetListing({listingId, vehicleType} );
+	const [showChat, setShowChat] = useState(false);
 
 	  return (
 	<main className="min-h-screen bg-[#f2f3f5]">
@@ -36,7 +39,7 @@ const ListingProduct = () => {
 	<VehicleMenu />
 
 	{/* Product */}
-	<section className="mt-20 flex flex-row  justify-center gap-10">
+	<section className="mt-20 flex  flex-row justify-center gap-10">
 
 		{/* Product image and description*/}
 		<div >
@@ -86,12 +89,16 @@ const ListingProduct = () => {
 						Reserve Now
 					</ScrollLink>
 				</div>
-				<button className="h-fit cursor-pointer rounded-md border border-solid border-black bg-[#979ea8] px-6 py-4 text-2xl font-bold hover:bg-slate-400">
+				<button
+					onClick={() => setShowChat(!showChat) } 
+					className="h-fit cursor-pointer rounded-md border border-solid border-black bg-[#979ea8] px-6 py-4 text-2xl font-bold hover:bg-slate-400">
 					Message Owner
 				</button>
 
 			</div>
 		</div>
+
+		{showChat && <Chatbox showChat={showChat} setShowChat={setShowChat} />}
 
 	</section>
 
