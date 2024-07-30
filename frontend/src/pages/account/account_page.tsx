@@ -22,12 +22,12 @@ const AccountPage = () => {
 
 			{/* Account Information */}
 			<div className='mx-auto my-16 grid grid-cols-2 items-center justify-center gap-10'>
-				<ScrollLink
+{/* 				<ScrollLink
 					to='/account/contact-info'
 					className="rounded-md border border-black bg-[#dedeff] px-8 py-4 text-center text-2xl font-semibold text-gray-900 hover:underline"
 				>
 					Contact Info
-				</ScrollLink>
+				</ScrollLink> */}
 				<ScrollLink
 					to='/manage-rentals'
 					className="rounded-md border border-black bg-[#dedeff] px-8 py-4 text-center text-2xl font-semibold text-gray-900 hover:underline"
@@ -41,23 +41,23 @@ const AccountPage = () => {
 					Bookmarks
 				</ScrollLink>
 				<ScrollLink
-					to='/support'
+					to='/borrowed'
+					className="rounded-md border border-black bg-[#dedeff] px-8 py-4 text-center text-2xl font-semibold text-gray-900 hover:underline"
+				>
+					Borrowed
+				</ScrollLink>
+				<a
+					href='mailto:support@borrowed.com'
 					className="rounded-md border border-black bg-[#dedeff] px-8 py-4 text-center text-2xl font-semibold text-gray-900 hover:underline"
 				>
 					Support
-				</ScrollLink>
-				<ScrollLink
-					to='/account/settings'
-					className="rounded-md border border-black bg-[#dedeff] px-8 py-4 text-center text-2xl font-semibold text-gray-900 hover:underline"
-				>
-					Reviews
-				</ScrollLink>
-				<ScrollLink
+				</a>
+{/* 				<ScrollLink
 					to='/account/settings'
 					className="rounded-md border border-black bg-[#dedeff] px-8 py-4 text-center text-2xl font-semibold text-gray-900 hover:underline"
 				>
 					Settings
-				</ScrollLink>
+				</ScrollLink> */}
 			</div>
 
 			{/* Footer */}

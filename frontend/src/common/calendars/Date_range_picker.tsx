@@ -4,22 +4,35 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import '../../styles/main.css'
 import { DateRangePicker } from 'react-date-range';
-import { useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 
+type Props = {
+	startDate: Date;
+	endDate: Date;
+	handler: (startDate: Date, endDate: Date) => void;
+}
 
-const DateRangePickerCalendar = () => {
+const DateRangePickerCalendar: FC<Props> = ({startDate, endDate, handler}) => {
 
 	const [selectionRange, setSelectionRange] = useState({
-		startDate: new Date(),
-		endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
+		startDate: startDate,
+		endDate: endDate,
 		key: 'selection',
 	  });
 
 	const handleSelect = (ranges:any) => {
-		console.log(ranges);
 		setSelectionRange(ranges.selection);
-	  }
+		handler(ranges.selection.startDate, ranges.selection.endDate);
+	}
+
+	useEffect(() => {
+		setSelectionRange({
+			startDate: startDate,
+			endDate: endDate,
+			key: 'selection',
+		});
+	}, [startDate, endDate])
 
   return (
 	<DateRangePicker

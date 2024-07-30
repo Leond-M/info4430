@@ -4,15 +4,40 @@ import Navbar from "common/navigation/navbar";
 import SearchBarMain from "common/searchbars/searchbar_main";
 import { BsFillWrenchAdjustableCircleFill } from "react-icons/bs";
 import ManageRentalCarousel from "./components/Manage_rental_carousel";
-import { RiImageAddLine } from "react-icons/ri";
-
-import utv from "assets/utv.avif";
-import DateRangePickerCalendar from "common/calendars/Date_range_picker";
+import ManageRentalCar from "./components/Manage_rental_car";
+import { useGetMyListings } from "api/actions/listings";
+import empty from "assets/empty.png";
+import { Listing } from "api/requests/listings";
+import {  useState } from "react";
 
 
 const ManageRentals = () => {
-	  return (
-	<main className="min-h-screen bg-[#f2f3f5]">
+
+	const {data=[]} = useGetMyListings();
+
+
+	const [selectedVehicle, setSelectedVehicle] = useState<Listing | null>(null);
+
+
+/* 	useEffect(() => {
+		if(data.length){
+			setSelectedVehicle(data[0]);
+		} else {
+			setSelectedVehicle(null);
+		}
+	}, [data]) */
+
+
+	const handleSelectVehicle = (id: string) => {
+		const selected = data.find( (item) => item.id === id);
+		if(selected){
+			setSelectedVehicle(selected);
+		}
+	}
+
+
+	return (
+		<main className="min-h-screen bg-[#f2f3f5]">
 
 	{/* Navbar */}
 	<Navbar />
@@ -34,62 +59,31 @@ const ManageRentals = () => {
 		{/* Divider */}
 		<hr className="my-5 border border-black"/>
 
-		<ManageRentalCarousel />
-
-
-		{/* Manage Rental */}
-		<div className="mx-16 mt-10 rounded-lg border-2 border-black px-4 py-10">
-			<div className="mb-2 flex flex-row">
-				{/* Icon and title */}
-				<BsFillWrenchAdjustableCircleFill className="size-10 text-black" />
-				<h1 className="text-3xl font-semibold">UTV</h1>
+		{data.length? <ManageRentalCarousel data={data} handler={handleSelectVehicle}/> : null}
+		{!data.length && <div className="flex flex-col items-center justify-center gap-5">
+				<img src={empty} alt="empty" className="size-[200px]" />
+				<p className="text-lg font-semibold text-gray-900">No Vehicles Found</p>
 			</div>
-
-			{/* Divider */}
-			<hr className="mb-5 w-full border border-solid border-black"/>
+		}
 
 
-
-			{/* Info */}
-			<div className="flex flex-col items-center justify-center gap-5 py-5 sm:flex-row sm:gap-20">
-
-				<div className="flex flex-col gap-5">
-					{/* Image */}
-					<div className="flex flex-col">
-						<img src={utv} alt="vehicle" className=" w-[300px]  sm:w-[350px] md:w-[450px]" />
-					</div>
-
-					{/* Change Image */}
-					<button className="flex flex-row gap-5">
-						<RiImageAddLine className="size-10 text-black" />
-						<h1 className="text-2xl font-semibold">Change Image</h1>
-					</button>
-
-				</div>
-
-
-				{/* Calendar */}
-				<div className="flex flex-col items-center justify-center">
-					<div className="flex flex-col items-center justify-center gap-5">
-						<h1 className="text-2xl font-semibold">Select Dates</h1>
-						<DateRangePickerCalendar />
-					</div>
-
-					{/* Change Price Input*/}
-					<div className="mt-10 flex flex-row gap-5">
-						<h1 className="text-2xl font-semibold">Change Price</h1>
-						<input 
-							type="number" 
-							className="h-10 w-[200px] rounded-md border-2 border-black text-right"
-							placeholder="$100"
-						/>
-					</div>
-
-					<button className="mt-10 rounded-lg bg-[#6db1ff] px-5 py-4  text-2xl font-bold text-black hover:bg-blue-300">Save Changes</button>
-				</div>
-			</div>
-		
+		<div className="mt-5 flex flex-row justify-center gap-5">
+			<button 
+				className="mt-5 rounded-md bg-black px-5 py-2 text-white" 
+				type="button"
+				onClick={() => setSelectedVehicle(null)}
+				>
+					Add New Vehicle
+				</button>
 		</div>
+
+
+		{/* Manage Rental Car */}
+		<ManageRentalCar data={selectedVehicle} />
+
+
+		
+		
 	</section>
 
 	{/* Footer */}

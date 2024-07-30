@@ -26,7 +26,6 @@ export const useGetBookmarks = () => {
 	const {data, isError, error, isLoading} = useQuery({
 		queryKey: [CACHE_KEYS.BOOKMARKS],
 		queryFn: () => queryBookmarks(),
-		refetchOnMount: false,
 		refetchOnWindowFocus: false,
 		refetchOnReconnect: false,
 		staleTime: 1000 * 60 * 60 * 1, //1 hour

@@ -26,6 +26,8 @@ func init() {
 	})
 	postgres_db.SyncDB()
 	jwt_wrapper.InitializeJWT(os.Getenv("JWT_SECRET"))
+
+	initializers.LoadStripe(os.Getenv("STRIPE_SECRET_KEY"))
 }
 
 func main() {
@@ -49,10 +51,18 @@ func main() {
 	//listings
 	router.GET("/listings", middleware.LaxSession, controllers.GetListings)
 	router.GET("/listing", middleware.LaxSession, controllers.GetListing)
+	router.GET("/listings/me", middleware.ValidateSession, controllers.GetMyListings)
+	router.PUT("/listing", middleware.ValidateSession, controllers.PutMyListing)
+
+	//rented
+	router.GET("/borrowed", middleware.ValidateSession, controllers.GetMyRentedListings)
 
 	//bookmark
 	router.POST("/bookmarks", middleware.ValidateSession, controllers.BookmarkListing)
 	router.GET("/bookmarks", middleware.ValidateSession, controllers.GetBookmarks)
+
+	//payment
+	router.POST("/payment/create", middleware.ValidateSession, controllers.CreatePaymentIntent)
 
 	//logs
 	logger.Log("Starting server on : %s", *port)

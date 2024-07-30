@@ -4,10 +4,8 @@ import { FC } from "react";
 
 
 import CarouselCard from "./Manage_rental_carousel_card";
-import utv from "assets/utv.avif"
-import atv from "assets/atv.avif"
-import campers from "assets/campers.avif"
-import dirtBikes from "assets/dirt_bikes.avif"
+import { Listing } from 'api/requests/listings';
+
 
 
 
@@ -32,29 +30,14 @@ const responsive = {
 	}
   };
 
-
-const listings = [
-	{
-		img: utv,
-		id: "Guided offroading through canyons"
-	},
-	{
-		img: atv,
-		id: "Horseback Riding through the mountains"
-	},
-	{
-		img: campers,
-		id: "July 4th Bash at the Night Train featuring DJ Rad"
-	},
-	{
-		img: dirtBikes,
-		id: "Award-winning Moab Music Festival brings world-class musicians to stunning red rock venues around Moab, Utah"
-	}
-];
+type Props = {
+	data: Listing[];
+	handler: (id: string) => void;
+}
 
 
 
-const ManageRentalCarousel: FC = () => {
+const ManageRentalCarousel: FC<Props> = ({data, handler}) => {
     return (
         <div className={`slider-container mx-auto mt-20 block max-w-7xl`}>
             <Carousel 
@@ -76,11 +59,12 @@ const ManageRentalCarousel: FC = () => {
 			
 			
 			>
-                {listings.map((listing) => {
+                {data.map((listing) => {
                     return (
-                            <CarouselCard key={listing.id}
-                                img={listing.img}
-								id={listing.id}
+                            <CarouselCard 
+								key={listing.id}
+								data={listing}
+								handler={handler}
                             />
                     );
                 })}

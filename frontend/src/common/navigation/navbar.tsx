@@ -75,7 +75,7 @@ const Navbar = () => {
 											to="/vehicles/utv"
 											className="text-lg font-semibold text-gray-500 hover:text-gray-900 hover:underline hover:underline-offset-[10px]"
 										>
-											Reservations
+											Reserve
 										</Link>
 										<Link
 											to="/account"

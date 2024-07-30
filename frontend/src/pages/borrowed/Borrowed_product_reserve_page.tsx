@@ -2,29 +2,28 @@ import VehicleMenu from "common/menus/vehicle_menu";
 import Navbar from "common/navigation/navbar";
 import SearchBarMain from "common/searchbars/searchbar_main";
 import Footer from "common/footer/footer";
-import SliderComponent from "./components/Carousel";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetListing } from "api/actions/listings";
 import { BN } from "utils/calculations";
-import { useMemo } from "react";
-import CustomPaymentElement from "pages/payments/components/Custom_payment_element";
+import { useMemo, useState } from "react";
 import { assets } from "common/cars";
+import Chatbox from "pages/listing/components/Chatbox";
 
 
-const ListingProductReservePage = () => {
+const BorrowedProductReservePage = () => {
 	//gets the slug from the url
 	const { listingId = "", vehicleType="" } = useParams();
-
+	const [showChat, setShowChat] = useState(false);
 
 	const {data} = useGetListing({listingId, vehicleType} );
-
-	const [searchParams] = useSearchParams();
-	const startDate = new Date(searchParams.get("start_date") || new Date());
-	const endDate = new Date(searchParams.get("end_date") || new Date(new Date().setDate(new Date().getDate() + 7)));
 
 
 
 	const calculatedFields = useMemo( () => {
+
+		const startDate = new Date(data?.rent_start_date_time || new Date());
+		const endDate = new Date(data?.rent_end_date_time || new Date(new Date().setDate(new Date().getDate() + 7)));
+
 		const days = new BN(endDate.getTime() - startDate.getTime()).dividedBy(1000 * 3600 * 24);
 		const rent = days.times(data?.price || 0);
 		const delivery = new BN(55);
@@ -40,8 +39,10 @@ const ListingProductReservePage = () => {
 			subtotal: subtotal.toNumber().toLocaleString(),
 			tax: tax.toNumber().toLocaleString(),
 			total: total.toNumber().toLocaleString(),
+			startDate,
+			endDate
 		}
-	}, [startDate, endDate, data?.price]);
+	}, [data?.rent_start_date_time, data?.rent_end_date_time, data?.price]);
 
 	  return (
 	<main className="min-h-screen bg-[#f2f3f5]">
@@ -58,7 +59,7 @@ const ListingProductReservePage = () => {
 
 	{/* Reservation */}
 	<section className="w-full flex-col items-center justify-center px-10">
-		<h1 className="mt-20 text-center text-4xl">Request Reservation</h1>
+		<h1 className="mt-20 text-center text-4xl">Reservation Details</h1>
 
 		<div className="mt-20 flex w-full flex-col  justify-center gap-10 sm:flex-row sm:gap-[100px]">
 			{/* Vehicle */}
@@ -74,7 +75,7 @@ const ListingProductReservePage = () => {
 			{/* Payment */}
 			<div className="w-[300px] sm:w-[350px] md:w-[450px]">
 				<h1 className="w-full text-center text-4xl font-bold">Reservation Details</h1>
-				<p className="text-center text-lg font-semibold">{startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}</p>
+				<p className="text-center text-lg font-semibold">{calculatedFields.startDate.toLocaleDateString()} - {calculatedFields.endDate.toLocaleDateString()}</p>
 					<div className="mt-5 flex flex-col gap-2 p-2">
 						{/* Price breakdown */}
 						<div className="flex flex-row justify-between">
@@ -102,20 +103,18 @@ const ListingProductReservePage = () => {
 							<p className="text-2xl font-semibold">${calculatedFields.total}</p>
 						</div>
 					</div>
-
-					<CustomPaymentElement 
-						price={calculatedFields.total} 
-						vehicleType={data?.vehicle_type || "utv"}
-						id={data?.id || ""}
-						startDate={startDate.toISOString()}
-						endDate={endDate.toISOString()}
-					/>
+					<div className="mt-10 flex w-full items-center justify-center">
+						<button
+						onClick={() => setShowChat(!showChat) } 
+						className="h-fit cursor-pointer rounded-md border border-solid border-black bg-[#979ea8] px-6 py-4 text-2xl font-bold hover:bg-slate-400">
+						Message Owner
+						</button>
+					</div>
 				</div>
+
 		</div>
 	</section>
-
-	<SliderComponent />
-
+	{showChat && <Chatbox showChat={showChat} setShowChat={setShowChat} />}
 
 	{/* Footer */}
 	<Footer />
@@ -124,4 +123,4 @@ const ListingProductReservePage = () => {
   );
 };
 
-export default ListingProductReservePage;
+export default BorrowedProductReservePage;

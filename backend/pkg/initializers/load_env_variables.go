@@ -2,7 +2,6 @@ package initializers
 
 import (
 	"it3510/pkg/logger"
-
 	"github.com/joho/godotenv"
 )
 
@@ -13,3 +12,4 @@ func LoadEnvVariables() {
 		logger.Fatal("Error loading .env file")
 	}
 }
+
