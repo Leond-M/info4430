@@ -85,6 +85,7 @@ export const useSession = () => {
 		mutationFn: queryLogout,
 		mutationKey: [CACHE_KEYS.SESSION],
 		onSuccess: () => {
+			navigate("/");
 			removeUserInfo();
 			//queryClient.invalidateQueries({queryKey:[CACHE_KEYS.SESSION]});
 			queryClient.setQueryData([CACHE_KEYS.SESSION], null);

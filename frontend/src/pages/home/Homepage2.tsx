@@ -12,8 +12,11 @@ import rvs from "../../assets/rvs.avif";
 import electric_bikes from "../../assets/electric_bikes.avif";
 import ScrollLink from "common/Links/Scroll_link";
 import Navbar from "common/navigation/navbar";
+import { useSession } from "api/actions/session";
 
 const Homepage: FC = () => {
+
+	const {user} = useSession();
 
 	return (
 		<main className="w-full bg-[#e9ecf3]">
@@ -62,30 +65,31 @@ const Homepage: FC = () => {
 			<div className="grid grid-cols-1 items-center justify-center gap-8 sm:grid-cols-2 md:grid-cols-3 md:gap-16">
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={utv} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<ScrollLink to="/vehicles/utv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</ScrollLink>
+
+					<ScrollLink to={user?.email? "/vehicles/utv" : "/login"} className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</ScrollLink>
 				</div>
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={atv} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<ScrollLink to="/vehicles/atv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">ATVs</ScrollLink>
+					<ScrollLink to={user?.email? "/vehicles/atv" : "/login"} className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">ATVs</ScrollLink>
 				</div>
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={dirt_bikes} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<ScrollLink to="/vehicles/dirbike" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">Dirt Bikes</ScrollLink>
+					<ScrollLink to={user?.email? "/vehicles/dirbike" : "/login"} className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">Dirt Bikes</ScrollLink>
 				</div>
 
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={campers} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<ScrollLink to="/vehicles/utv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</ScrollLink>
+					<ScrollLink to={user?.email? "/vehicles/camper" : "/login"} className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">Camper</ScrollLink>
 				</div>
 
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={rvs} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<ScrollLink to="/vehicles/utv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</ScrollLink>
+					<ScrollLink to={user?.email? "/vehicles/rv" : "/login"} className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">RVs</ScrollLink>
 				</div>
 
 				<div className="flex flex-col items-center justify-center gap-2">
 					<img src={electric_bikes} alt="hero" className=" w-[150px] md:w-[350px]" />
-					<ScrollLink to="/vehicles/utv" className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">UTVs</ScrollLink>
+					<ScrollLink to={user?.email? "/vehicles/ebike" : "/login"} className="w-fit rounded-3xl bg-[#3d6298] px-8 py-1 text-4xl font-bold text-white">E Bikes</ScrollLink>
 				</div>
 
 			</div>
